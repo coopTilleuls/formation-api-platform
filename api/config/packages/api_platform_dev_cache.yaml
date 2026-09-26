@@ -1,0 +1,11 @@
+# Contournement d'un défaut d'API Platform 4.4 : en debug, la liste des propriétés
+# (PropertyInfo) reste en cache sur disque et n'est jamais invalidée.
+# Sans ce fichier, une propriété ajoutée/renommée n'apparaît pas dans la doc ni dans les réponses.
+when@dev: &property_info_array_cache
+    framework:
+        cache:
+            pools:
+                cache.property_info:
+                    adapter: cache.adapter.array
+
+when@test: *property_info_array_cache
